@@ -1,0 +1,17 @@
+Package: redditr
+Version: 0.0.0.9000
+Title: Reddit Content Scraper
+Description: An R package to interface with pushshift's Reddit API. The immediate goal
+    is to provide functionality for extracting comment and submission data. Longer term,
+    this package may also contain functionality to facilitate text analysis with Reddit data.
+Authors@R: person("Geoffrey", "Lamb", email = "geoffwlamb@gmail.com", role = c("aut", "cre"))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+Suggests: 
+    testthat
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Imports: 
+    magrittr
