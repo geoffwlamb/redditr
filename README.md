@@ -1,20 +1,11 @@
 # redditr
+redditr is an R package intended to help obtain content from Reddit by interfacing with the <a href = "https://github.com/pushshift/api"> pushshift.io Reddit API</a>.
 
-The goal of redditr is to ...
+The immediate scope of this package is to build functionality for getting Reddit data into R. Longer term, I'm also hoping to add functionality for prepping data for analysis/visualization. Let's see how this goes...
 
 ## Installation
-
-You can install the released version of redditr from [CRAN](https://CRAN.R-project.org) with:
-
+Install via devtools:
 ``` r
-install.packages("redditr")
+devtools::install_github("geoffwlamb/redditr")
 ```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-## basic example code
-```
-
+## Functionality under construction. Please check back later.
