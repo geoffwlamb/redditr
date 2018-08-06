@@ -49,7 +49,7 @@ construct_url <- function(type = "comment", ...) {
 
 #' Convert String or Date to API Input
 #'
-#' @param date A date to compare to the Unit epoch
+#' @param date A date to compare to the Unit epoch, granular down to seconds
 #' @param tz The timezone of the date to compare, defaults to system's timezone
 #'
 #' @return A string representing a time (in seconds) that the api can use to return results
@@ -67,9 +67,11 @@ date_to_api <- function(date, tz = ""){
   origin <- as.POSIXct("1970-01-01", tz = "UTC")
   comp_date <- as.POSIXct(date, tz = tz)
 
-  format(
+  raw_text <- format(
     as.numeric(difftime(comp_date, origin, units = "secs")),
     scientific = FALSE
   )
+
+  trimws(raw_text)
 
 }
