@@ -2,4 +2,5 @@
 
 export("%>%")
 export(construct_url)
+export(date_to_api)
 importFrom(magrittr,"%>%")
