@@ -72,6 +72,6 @@ date_to_api <- function(date, tz = ""){
     scientific = FALSE
   )
 
-  trimws(raw_text)
+  sub("^\\s+", "", raw_text)
 
 }
