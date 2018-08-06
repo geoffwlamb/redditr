@@ -43,7 +43,6 @@ construct_url <- function(type = "comment", ...) {
 
   # return URL
   return(paste(url_stub, type, api_query, sep = ""))
-
 }
 
 
@@ -62,8 +61,7 @@ construct_url <- function(type = "comment", ...) {
 #' # Pass as argument to construct_url
 #' construct_url(before = date_to_api("2017-01-01"))
 #'
-date_to_api <- function(date, tz = ""){
-
+date_to_api <- function(date, tz = "") {
   origin <- as.POSIXct("1970-01-01", tz = "UTC")
   comp_date <- as.POSIXct(date, tz = tz)
 
@@ -73,5 +71,4 @@ date_to_api <- function(date, tz = ""){
   )
 
   sub("^\\s+", "", raw_text)
-
 }

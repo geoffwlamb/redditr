@@ -40,5 +40,3 @@ test_that("time is granular beyond days", {
     as.integer(date_to_api("2010-01-01"))
   )
 })
-
-
