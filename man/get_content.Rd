@@ -4,7 +4,7 @@
 \alias{get_content}
 \title{Import data from URL}
 \usage{
-get_content(url, drop_list_cols = FALSE, drop_empty_cols = FALSE)
+get_content(url)
 }
 \arguments{
 \item{url}{A url leading to JSON data, typically produced from construct_url}

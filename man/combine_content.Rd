@@ -17,5 +17,7 @@ the number of rows you need.}
 A data.frame with content imported from your query
 }
 \description{
-Scrape content from multiple URLs and combine into a single data frame
+This function dynamically constructs URLs and imports the
+data contained within them. It is designed to automate the process of importing
+larger amounts of data.
 }
