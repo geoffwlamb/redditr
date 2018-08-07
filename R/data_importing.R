@@ -9,8 +9,6 @@
 #' @examples
 #' # Read 25 recent Reddit comments into R
 #' get_content(construct_url())
-#' # Simplify the returned dataset
-#' get_content(construct_url(), drop_list_cols = TRUE, drop_empty_cols = TRUE)
 get_content <- function(url){
   # removing nested data for now so that combine_content works as expected
   jsonlite::fromJSON(url)[[1]] %>%
