@@ -19,6 +19,4 @@ a data.frame instead of a list.
 \examples{
 # Read 25 recent Reddit comments into R
 get_content(construct_url())
-# Simplify the returned dataset
-get_content(construct_url(), drop_list_cols = TRUE, drop_empty_cols = TRUE)
 }
