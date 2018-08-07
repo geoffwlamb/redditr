@@ -7,7 +7,7 @@
 date_to_api(date, tz = "")
 }
 \arguments{
-\item{date}{A date to compare to the Unit epoch}
+\item{date}{A date to compare to the Unit epoch, granular down to seconds}
 
 \item{tz}{The timezone of the date to compare, defaults to system's timezone}
 }
@@ -18,10 +18,10 @@ A string representing a time (in seconds) that the api can use to return results
 Converts a supplied date to microseconds, which can get passed to date arguments (e.g. before, after) in construct_url
 }
 \examples{
-#Convert today
+# Convert today
 date_to_api(Sys.Date())
 
-#Pass as argument to construct_url
+# Pass as argument to construct_url
 construct_url(before = date_to_api("2017-01-01"))
 
 }

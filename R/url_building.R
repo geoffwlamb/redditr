@@ -19,7 +19,12 @@
 #' construct_url(type = "submission", subreddit = "rstats")
 #'
 #' # Grab posts on a certain date
-#' construct_url(type = "submission, subreddit = "rstats", before = date_to_api("2017-03-14"), after = date_to_api("2017-03-12"))
+#' construct_url(
+#'  type = "submission,
+#'  subreddit = "rstats",
+#'  before = date_to_api("2017-03-14"),
+#'  after = date_to_api("2017-03-12")
+#')
 #'
 construct_url <- function(type = "comment", ...) {
 

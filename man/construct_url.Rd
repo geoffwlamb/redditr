@@ -20,14 +20,3 @@ Construct a URL to access Reddit Content
 \details{
 Here's the list of parameters that the api can use: https://github.com/pushshift/api#search-parameters-for-comments. The api ignores unrecognized parameters, so you may want to verify your output.
 }
-\examples{
-#URL for most recent comments on Reddit
-construct_url()
-
-#Grab 500 instead of default 25
-construct_url(size = 500)
-
-#Grab posts from specific subreddit
-construct_url(type = "submission", subreddit = "rstats")
-
-}
