@@ -58,6 +58,11 @@ combine_content <- function(n_max, ...){
     tmp_data <- get_content(tmp_url)
     tmp_df <- dplyr::bind_rows(tmp_df, tmp_data)
 
+    # hotfix to remove edited column until issue actually resolved
+    if ("edited" %in% colnames(tmp_df)) {
+      tmp_df <- tmp_df %>% dplyr::select(-edited)
+    }
+
     # update tmp variables
     tmp_left <- n_max - nrow(tmp_df)
     tmp_url <- do.call(
