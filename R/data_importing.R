@@ -28,16 +28,28 @@ get_content <- function(url){
 #' @export
 combine_content <- function(n_max, ...){
 
-  if("size" %in% tolower(names(c(...)))) {
-    stop("Size cannot be passed to the api for this function. Please use n_max instead")
+  dots <- list(...)
+  names(dots) <- tolower(names(dots))
+  init_before <- date_to_api(Sys.time())
+  if("size" %in% names(dots)) {
+    warning("Size cannot be used this function, using specified n_max instead.")
+    dots[["size"]] <- NULL
+  }
+  if("before" %in% tolower(names(dots))) {
+    init_before <- dots[["before"]]
+    dots[["before"]] <- NULL
   }
 
   #initialize variables
   size <- min(n_max, 500)
   tmp_left <- n_max
-  tmp_url <- construct_url(
-    size = min(tmp_left, 500),
-    ...
+  tmp_url <- do.call(
+    construct_url,
+    c(
+      list(size = min(tmp_left, 500), before = init_before),
+      dots
+    )
+
   )
   tmp_df <- data.frame()
 
@@ -48,11 +60,14 @@ combine_content <- function(n_max, ...){
 
     # update tmp variables
     tmp_left <- n_max - nrow(tmp_df)
-    tmp_url <- construct_url(
-      before = min(tmp_df$created_utc),
-      size = min(size, tmp_left),
-      ...
+    tmp_url <- do.call(
+      construct_url,
+      c(
+        list(before = min(tmp_df$created_utc), size = min(size, tmp_left)),
+        dots
+      )
     )
+
     # break if final url
     if (nrow(tmp_data) < size) {
       break
