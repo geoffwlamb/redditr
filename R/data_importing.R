@@ -41,6 +41,8 @@ combine_content <- function(n_max, ...){
   }
 
   #initialize variables
+  progress_bar <- txtProgressBar(min = 0, max = n_max, style = 3, width = 50)
+  progress <- 0
   size <- min(n_max, 500)
   tmp_left <- n_max
   tmp_url <- do.call(
@@ -65,6 +67,7 @@ combine_content <- function(n_max, ...){
 
     # update tmp variables
     tmp_left <- n_max - nrow(tmp_df)
+    progress <- progress + min(tmp_left, 500)
     tmp_url <- do.call(
       construct_url,
       c(
@@ -72,6 +75,7 @@ combine_content <- function(n_max, ...){
         dots
       )
     )
+    setTxtProgressBar(progress_bar, progress)
 
     # break if final url
     if (nrow(tmp_data) < size) {
@@ -79,5 +83,6 @@ combine_content <- function(n_max, ...){
     }
   }
 
+  setTxtProgressBar(progress_bar, n_max)
   return(tmp_df)
 }
