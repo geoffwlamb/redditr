@@ -9,10 +9,12 @@
 #' @examples
 #' # Read 25 recent Reddit comments into R
 #' get_content(construct_url())
-get_content <- function(url){
+get_content <- function(url) {
   # removing nested data for now so that combine_content works as expected
   jsonlite::fromJSON(url)[[1]] %>%
-    purrr::modify_if(is.list, function(x){NULL})
+    purrr::modify_if(is.list, function(x) {
+      NULL
+    })
 }
 
 
@@ -26,21 +28,20 @@ get_content <- function(url){
 #' @param ... Additional arguments to pass to construct_url to build api query.
 #' @return A data.frame with content imported from your query
 #' @export
-combine_content <- function(n_max, ...){
-
+combine_content <- function(n_max, ...) {
   dots <- list(...)
   names(dots) <- tolower(names(dots))
   init_before <- date_to_api(Sys.time())
-  if("size" %in% names(dots)) {
+  if ("size" %in% names(dots)) {
     warning("Size cannot be used this function, using specified n_max instead.")
     dots[["size"]] <- NULL
   }
-  if("before" %in% tolower(names(dots))) {
+  if ("before" %in% tolower(names(dots))) {
     init_before <- dots[["before"]]
     dots[["before"]] <- NULL
   }
 
-  #initialize variables
+  # initialize variables
   progress_bar <- txtProgressBar(min = 0, max = n_max, style = 3, width = 50)
   progress <- 0
   size <- min(n_max, 500)
@@ -51,7 +52,6 @@ combine_content <- function(n_max, ...){
       list(size = min(tmp_left, 500), before = init_before),
       dots
     )
-
   )
   tmp_df <- data.frame()
 

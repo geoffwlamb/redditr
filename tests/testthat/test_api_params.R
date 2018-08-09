@@ -4,11 +4,11 @@ test_that("reference dataset is consistent", {
   a <- get_content(construct_url(size = 10, before = date_to_api("2017-01-01")))
   Sys.sleep(3)
   b <- get_content(construct_url(size = 10, before = date_to_api("2017-01-01")))
-  expect_identical(a,b)
+  expect_identical(a, b)
 })
 
 test_that("known parameters alter comment queries", {
-  #baseline, not checking size, before, after, aggs, frequency, or sort_type here
+  # baseline, not checking size, before, after, aggs, frequency, or sort_type here
   ref_url <- construct_url(size = 10, before = date_to_api("2016-01-01"))
   ref <- get_content(ref_url)
 
@@ -27,11 +27,10 @@ test_that("known parameters alter comment queries", {
   expect_false(
     identical(ref, get_content(paste0(ref_url, "&author=hadley")))
   )
-
 })
 
 test_that("known parameters alter submission queries", {
-  #baseline, not checking size, before, after, aggs, frequency here
+  # baseline, not checking size, before, after, aggs, frequency here
   ref_url <- construct_url(
     size = 10,
     before = date_to_api("2016-01-01"),

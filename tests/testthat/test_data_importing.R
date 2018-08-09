@@ -36,13 +36,13 @@ test_that("combine_content returns data.frame", {
 })
 
 test_that("combine_content doesn't use size as a parameter", {
-  #check warnings
+  # check warnings
   expect_warning(combine_content(10, size = 40))
   expect_warning(combine_content(40, size = 10))
   expect_warning(combine_content(10, SIZE = 10))
   expect_warning(combine_content(10, SiZe = 10))
 
-  #check results
+  # check results
   a <- combine_content(10, size = 40)
   b <- combine_content(40, size = 10)
   c <- combine_content(10, SIZE = 10)
@@ -72,5 +72,3 @@ test_that("combine_content can use before with n_max > 500", {
   expect_equal(nrow(a), 501)
   expect_equal(max(a$created_utc), max(b$created_utc))
 })
-
-
