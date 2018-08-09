@@ -15,16 +15,27 @@ Here are the basic approaches to using redditr:
 library(redditr)
 
 # construct a url pointing to data
-url <- construct_url(type = "submission", subreddit = "rstats")
+post_url <- construct_url(type = "submission", subreddit = "rstats")
+comment_url <- construct_url(type = "submission", author = "hadley")
 
 # import the data from the url
-posts <- get_content(url)
+posts <- get_content(post_url)
+comments <- get_content(comment_url)
 
 # automate the process for larger data
-many_posts <- combine_content(n_max = 1000, type = "submission", subreddit = "rstats")
+many_posts <- combine_content(
+  n_max = 1000, 
+  type = "submission", 
+  before = date_to_api("2017-12-26")
+)
+many_comments <- combine_content(
+  n_max = 1000, 
+  type = "comment", 
+  q = "programming"
+)
 ```
 
-Make sure to check out ( ). At some point, I'll add a bit more error handling to ensure the validity of constructed urls, but in the meantime, please experiment with the parameters <a href = "https://github.com/pushshift/api#search-parameters-for-comments"> here</a> (and feel free to let me know if anythign isn't working well).
+Hopefully that captures the essence of what this package aims to accomplish. At some point, I'll add a bit more error handling to ensure the validity of constructed urls, but in the meantime, please experiment with the parameters <a href = "https://github.com/pushshift/api#search-parameters-for-comments"> here</a> (and feel free to let me know if anything isn't working well).
 
 Thanks for checking out redditr!
 
