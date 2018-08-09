@@ -1,3 +1,5 @@
+# redditr 0.0.2
+
 * Added unit tests for interactions between url constructing and data importing
 * Added functionality for importaing data from constructed urls
 
