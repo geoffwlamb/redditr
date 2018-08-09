@@ -16,7 +16,7 @@ library(redditr)
 
 # construct a url pointing to data
 post_url <- construct_url(type = "submission", subreddit = "rstats")
-comment_url <- construct_url(type = "submission", author = "hadley")
+comment_url <- construct_url(type = "comment", author = "hadley")
 
 # import the data from the url
 posts <- get_content(post_url)
