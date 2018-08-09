@@ -8,7 +8,26 @@ Install via devtools:
 ``` r
 devtools::install_github("geoffwlamb/redditr")
 ```
-## Functionality under construction. Please check back later.
+## Examples
+Here are the basic approaches to using redditr:
+``` r
+# load redditr
+library(redditr)
+
+# construct a url pointing to data
+url <- construct_url(type = "submission", subreddit = "rstats")
+
+# import the data from the url
+posts <- get_content(url)
+
+# automate the process for larger data
+many_posts <- combine_content(n_max = 1000, type = "submission", subreddit = "rstats")
+```
+
+Make sure to check out ( ). At some point, I'll add a bit more error handling to ensure the validity of constructed urls, but in the meantime, please experiment with the parameters <a href = "https://github.com/pushshift/api#search-parameters-for-comments"> here</a> (and feel free to let me know if anythign isn't working well).
+
+Thanks for checking out redditr!
+
 
 [![Travis build status](https://travis-ci.org/geoffwlamb/redditr.svg?branch=master)](https://travis-ci.org/geoffwlamb/redditr)
 

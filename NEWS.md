@@ -1,3 +1,6 @@
+* Added unit tests for interactions between url constructing and data importing
+* Added functionality for importaing data from constructed urls
+
 # redditr 0.0.1
 
 * Added functionality for constructing URLs to access data via pushshift api

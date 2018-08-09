@@ -58,12 +58,11 @@ combine_content <- function(n_max, ...){
   while (tmp_left > 0) {
     # add new data
     tmp_data <- get_content(tmp_url)
-    tmp_df <- dplyr::bind_rows(tmp_df, tmp_data)
-
-    # hotfix to remove edited column until issue actually resolved
-    if ("edited" %in% colnames(tmp_df)) {
-      tmp_df <- tmp_df %>% dplyr::select(-edited)
+    # hotfix to coerce edited to character
+    if ("edited" %in% colnames(tmp_data)) {
+      tmp_data$edited <- as.integer(tmp_data$edited)
     }
+    tmp_df <- dplyr::bind_rows(tmp_df, tmp_data)
 
     # update tmp variables
     tmp_left <- n_max - nrow(tmp_df)
