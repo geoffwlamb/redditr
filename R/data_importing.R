@@ -12,9 +12,7 @@
 get_content <- function(url) {
   # removing nested data for now so that combine_content works as expected
   jsonlite::fromJSON(url)[[1]] %>%
-    purrr::modify_if(is.list, function(x) {
-      NULL
-    })
+    purrr::modify_if(is.list, function(x) NULL)
 }
 
 
@@ -83,5 +81,7 @@ combine_content <- function(n_max, ...) {
   }
 
   setTxtProgressBar(progress_bar, n_max)
-  return(tmp_df)
+  out <- tmp_df %>%
+    purrr::modify_if(stringr::str_detect(colnames(.), "utc"), api_to_date, tz = "UTC")
+  return(out)
 }

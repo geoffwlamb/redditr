@@ -77,3 +77,26 @@ date_to_api <- function(date, tz = "") {
 
   sub("^\\s+", "", raw_text)
 }
+
+#' Convert API Time Back to a Timestamp
+#' @description This is a convenience function that wraps as.POSIXct to
+#'     convert a time represented in seconds after the unit epoch to
+#'     a more human interpretable timestamp.
+#' @param api_date A date or vector of dates to be converted
+#' @param tz The timezone you want the resulting output to be in, defaults
+#'     to system's timezone
+#' @return A POSIXct of the input
+#' @export
+#' @examples
+#' # Convert current time to API
+#' right_now <- Sys.time()
+#'
+#' # Convert it back to
+#' right_now_as_api <- date_to_api(right_now)
+#'
+#' # And back to current time
+#' api_to_date(right_now_as_api)
+#'
+api_to_date <- function(api_date, tz = "") {
+  as.POSIXct(as.numeric(api_date), origin = "1970-01-01", tz = tz)
+}

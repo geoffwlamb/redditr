@@ -1,9 +1,11 @@
 
-# functionality ----
+# get_content -------------------------------------------------------------
 context("get_content functionaliy")
 
 test_that("get_content is available", {
-  expect_true(exists("get_content"))
+  expect_true(
+    exists("get_content", where="package:redditr", mode="function")
+  )
 })
 
 test_that("get_content returns data.frame", {
@@ -11,8 +13,12 @@ test_that("get_content returns data.frame", {
 })
 
 test_that("get_content succeeds for both comments and submissions", {
-  expect_error(expect_error(get_content(construct_url(type = "comment"))))
-  expect_error(expect_error(get_content(construct_url(type = "submission"))))
+  expect_error(
+    expect_error(get_content(construct_url(type = "comment")))
+  )
+  expect_error(
+    expect_error(get_content(construct_url(type = "submission")))
+  )
 })
 
 test_that("get_content contains no list columns", {
@@ -25,10 +31,13 @@ test_that("get_content contains no list columns", {
 })
 
 
+# combine_content ---------------------------------------------------------
 context("combine_content functionaliy")
 
 test_that("combine_content is available", {
-  expect_true(exists("combine_content"))
+  expect_true(
+    exists("combine_content", where="package:redditr", mode="function")
+  )
 })
 
 test_that("combine_content returns data.frame", {
@@ -62,7 +71,8 @@ test_that("combine_content succeeds for both comments and submissions", {
   expect_error(expect_error(combine_content(10, type = "submission")))
 })
 
-# bug fixes ----
+
+# bug fixes ---------------------------------------------------------------
 context("combine content bug fixes")
 
 test_that("combine_content can use before with n_max > 500", {
