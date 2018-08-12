@@ -82,6 +82,6 @@ combine_content <- function(n_max, ...) {
 
   setTxtProgressBar(progress_bar, n_max)
   out <- tmp_df %>%
-    purrr::modify_if(stringr::str_detect(colnames(.), "utc"), api_to_date, tz = "UTC")
+    purrr::modify_if(grepl("utc", colnames(.)), api_to_date, tz = "UTC")
   return(out)
 }
