@@ -30,6 +30,7 @@ combine_content <- function(n_max, ...) {
   dots <- list(...)
   names(dots) <- tolower(names(dots))
   init_before <- date_to_api(Sys.time())
+  init_after <- date_to_api("1970-01-01")
   if ("size" %in% names(dots)) {
     warning("Size cannot be used this function, using specified n_max instead.")
     dots[["size"]] <- NULL
@@ -38,16 +39,28 @@ combine_content <- function(n_max, ...) {
     init_before <- dots[["before"]]
     dots[["before"]] <- NULL
   }
+  if ("after" %in% tolower(names(dots))) {
+    init_after <- dots[["after"]]
+    dots[["after"]] <- NULL
+  }
 
   # initialize variables
-  progress_bar <- txtProgressBar(min = 0, max = n_max, style = 3, width = 50)
+  progress_bar <- txtProgressBar(
+    min = 0,
+    max = n_max,
+    style = 3,
+    width = 50
+  )
   progress <- 0
   size <- min(n_max, 500)
   tmp_left <- n_max
   tmp_url <- do.call(
     construct_url,
     c(
-      list(size = min(tmp_left, 500), before = init_before),
+      list(
+        size = min(tmp_left, 500),
+        before = init_before
+      ),
       dots
     )
   )
@@ -68,13 +81,19 @@ combine_content <- function(n_max, ...) {
     tmp_url <- do.call(
       construct_url,
       c(
-        list(before = min(tmp_df$created_utc), size = min(size, tmp_left)),
+        list(
+          before = min(tmp_df$created_utc),
+          size = min(size, tmp_left)
+        ),
         dots
       )
     )
     setTxtProgressBar(progress_bar, progress)
 
     # break if final url
+    if (length(tmp_data) == 0) {
+      break
+    }
     if (nrow(tmp_data) < size) {
       break
     }
@@ -82,6 +101,7 @@ combine_content <- function(n_max, ...) {
 
   setTxtProgressBar(progress_bar, n_max)
   out <- tmp_df %>%
+    dplyr::filter(as.numeric(created_utc) > as.numeric(init_after)) %>%
     purrr::modify_if(grepl("utc", colnames(.)), api_to_date, tz = "UTC")
   return(out)
 }

@@ -82,3 +82,26 @@ test_that("combine_content can use before with n_max > 500", {
   expect_equal(nrow(a), 501)
   expect_equal(max(a$created_utc), max(b$created_utc))
 })
+
+test_that("combine content can use after with n_max > 500", {
+  a <- combine_content(501, after = date_to_api("2017-01-01"))
+  expect_equal(nrow(a), 501)
+})
+
+test_that("before and after can coexist with n_max > 500", {
+  a <- combine_content(
+    501,
+    after = date_to_api("2017-01-01"),
+    before = date_to_api("2017-01-03")
+  )
+  expect_equal(nrow(a), 501)
+})
+
+test_that("conflicting before/after yields an empty dataset", {
+  a <- combine_content(
+    5,
+    after = date_to_api("2017-01-03"),
+    before = date_to_api("2017-01-01")
+  )
+  expect_equal(nrow(a), 0)
+})
