@@ -33,5 +33,4 @@ date_to_api("2018-03-21")
 
 # pass as argument to construct_pushshift_url
 construct_pushshift_url(before = date_to_api("2017-01-01"))
-
 }

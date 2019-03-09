@@ -29,5 +29,4 @@ right_now_as_api <- date_to_api(right_now)
 
 # and back to current time
 api_to_date(right_now_as_api)
-
 }

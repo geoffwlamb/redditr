@@ -19,24 +19,23 @@
 #' @examples
 #' # url for most recent comments on Reddit
 #' construct_pushshift_url(content_type = "comment")
-#'
+#' 
 #' # url for most recent submissions on Reddit
 #' construct_pushshift_url(content_type = "submission")
-#'
+#' 
 #' # url for 500 most recent comments on Reddit
 #' construct_pushshift_url(size = 500)
-#'
+#' 
 #' # url for 25 most recent posts from the rstats subreddit
 #' construct_pushshift_url(type = "submission", subreddit = "rstats")
-#'
+#' 
 #' # url for 25 most recent posts from the rstats subreddit
 #' construct_pushshift_url(
-#'  type = "submission",
-#'  subreddit = "rstats",
-#'  before = date_to_api("2017-03-14"),
-#'  after = date_to_api("2017-03-12")
+#'   type = "submission",
+#'   subreddit = "rstats",
+#'   before = date_to_api("2017-03-14"),
+#'   after = date_to_api("2017-03-12")
 #' )
-#'
 construct_pushshift_url <- function(content_type = "comment", ...) {
   # validate type
   if (length(content_type) != 1) {

@@ -46,10 +46,9 @@ construct_pushshift_url(type = "submission", subreddit = "rstats")
 
 # url for 25 most recent posts from the rstats subreddit
 construct_pushshift_url(
- type = "submission",
- subreddit = "rstats",
- before = date_to_api("2017-03-14"),
- after = date_to_api("2017-03-12")
+  type = "submission",
+  subreddit = "rstats",
+  before = date_to_api("2017-03-14"),
+  after = date_to_api("2017-03-12")
 )
-
 }

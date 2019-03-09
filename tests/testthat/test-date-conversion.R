@@ -37,4 +37,3 @@ test_that("api_to_date and date_to_api are inverses", {
 
   expect_identical(a, c)
 })
-
