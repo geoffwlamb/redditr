@@ -10,6 +10,7 @@ ref_comment_wait <- import_reddit_content_from_url(
   construct_pushshift_url(before = test_date)
 )
 test_that("reference comment data is static", {
+  skip_on_travis()
   expect_identical(ref_comment, ref_comment_wait)
 })
 
@@ -54,6 +55,8 @@ test_that("known api parameters affect results for comments, unknown do not", {
     construct_pushshift_url(before = test_date, not_a_param = "test")
   )
 
+  expect_is(ref_comment, "data.frame")
+
   expect_false(identical(q, ref_comment))
   expect_true(nrow(q) > 0)
 
@@ -88,8 +91,13 @@ test_date <- date_to_api("2017-01-01", tz = "UTC")
 ref_submission <- import_reddit_content_from_url(
   construct_pushshift_url(content_type = "submission", before = test_date)
 )
+Sys.sleep(3)
+ref_submission_wait <- import_reddit_content_from_url(
+  construct_pushshift_url(before = test_date, content_type = "submission")
+)
 
 test_that("reference submission data is static", {
+  skip_on_travis()
   expect_identical(ref_submission, ref_submission_wait)
 })
 
@@ -170,6 +178,8 @@ test_that("known api parameters affect results, unknown do not", {
       not_a_param = "test"
     )
   )
+
+  expect_is(ref_submission, "data.frame")
 
   expect_false(identical(q, ref_submission))
   expect_true(nrow(q) > 0)
