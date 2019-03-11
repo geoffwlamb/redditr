@@ -88,10 +88,7 @@ test_date <- date_to_api("2017-01-01", tz = "UTC")
 ref_submission <- import_reddit_content_from_url(
   construct_pushshift_url(content_type = "submission", before = test_date)
 )
-Sys.sleep(3)
-ref_submission_wait <- import_reddit_content_from_url(
-  construct_pushshift_url(content_type = "submission", before = test_date)
-)
+
 test_that("reference submission data is static", {
   expect_identical(ref_submission, ref_submission_wait)
 })
@@ -206,6 +203,7 @@ test_that("known api parameters affect results, unknown do not", {
 })
 
 test_that("timeout triggers", {
+  skip_on_travis()
   expect_message(
     object = import_reddit_content_from_url(
       construct_pushshift_url(q = "the"),
