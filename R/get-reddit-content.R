@@ -24,51 +24,50 @@
 #' @examples
 #' # get 500 most recent reddit comments avilable from api
 #' recent_comments <- get_reddit_content()
-#'
+#' 
 #' # get 500 most recent posts
 #' recent_posts <- get_reddit_content(content_type = "submission")
-#'
+#' 
 #' # get more than 500 comments
 #' many_recent_comments <- get_reddit_content(
-#'  content_type = "comment",
-#'  result_limit = 1000
+#'   content_type = "comment",
+#'   result_limit = 1000
 #' )
-#'
+#' 
 #' # wait longer than default 10 seconds per query
 #' patient_query <- get_reddit_content(
-#' content_type = "comment",
-#' timeout = 20
+#'   content_type = "comment",
+#'   timeout = 20
 #' )
 #' # get posts from a specific subreddit
 #' rstats_posts <- get_reddit_content(
 #'   content_type = "submission",
 #'   subreddit = "rstats"
 #' )
-#'
+#' 
 #' # get comments from a specific user
 #' hadley_comments <- get_reddit_content(
 #'   content_type = "comment",
 #'   author = "hadley"
 #' )
-#'
+#' 
 #' # get comments relating to data science
 #' comments_before_christmas <- get_reddit_content(
 #'   content_type = "comment",
 #'   q = "data science"
 #' )
-#'
+#' 
 #' # get comments before a specific date
 #' comments_before_christmas <- get_reddit_content(
 #'   content_type = "comment",
 #'   before = date_to_api("2018-12-25 00:00:00", tz = "EST")
 #' )
-#'
+#' 
 #' # get comments after a specific date
 #' comments_after_christmas <- get_reddit_content(
 #'   content_type = "comment",
 #'   after = date_to_api("2018-12-25 23:59:59", tz = "EST")
 #' )
-#'
 get_reddit_content <- function(
                                content_type = "comment",
                                result_limit = 500,

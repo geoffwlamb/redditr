@@ -208,7 +208,8 @@ test_that("known api parameters affect results, unknown do not", {
 test_that("timeout triggers", {
   expect_message(
     object = import_reddit_content_from_url(
-      construct_pushshift_url(q = "the"), timeout = 1
+      construct_pushshift_url(q = "the"),
+      timeout = 1
     ),
     regexp = "Time limit for a single request was exceeded.",
     fixed = TRUE
