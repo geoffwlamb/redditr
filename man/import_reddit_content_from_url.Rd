@@ -4,11 +4,14 @@
 \alias{import_reddit_content_from_url}
 \title{Import Data from a Pushshift URL}
 \usage{
-import_reddit_content_from_url(url)
+import_reddit_content_from_url(url, timeout = 10)
 }
 \arguments{
 \item{url}{A url leading to JSON data, typically produced via
 \code{construct_pushshift_url}.}
+
+\item{timeout}{An integer representing the maximum amount of time to allow
+for retrieving content from a single URL. Defaults to 10 seconds.}
 }
 \value{
 A data.frame with data available from the provided url
