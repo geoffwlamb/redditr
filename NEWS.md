@@ -1,3 +1,5 @@
+# redditr 0.1.0
+
 
 * Reworked package functions to support a single flagship function, get_reddit_content
 * Renamed underlying functions to be more specific
