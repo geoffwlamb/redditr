@@ -10,7 +10,6 @@ ref_comment_wait <- import_reddit_content_from_url(
   construct_pushshift_url(before = test_date)
 )
 test_that("reference comment data is static", {
-  skip_on_travis()
   expect_identical(ref_comment, ref_comment_wait)
 })
 
@@ -97,7 +96,6 @@ ref_submission_wait <- import_reddit_content_from_url(
 )
 
 test_that("reference submission data is static", {
-  skip_on_travis()
   expect_identical(ref_submission, ref_submission_wait)
 })
 
@@ -213,7 +211,6 @@ test_that("known api parameters affect results, unknown do not", {
 })
 
 test_that("timeout triggers", {
-  skip_on_travis()
   expect_message(
     object = import_reddit_content_from_url(
       construct_pushshift_url(q = "the"),
