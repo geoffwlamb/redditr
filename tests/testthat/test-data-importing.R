@@ -39,7 +39,7 @@ test_that("known api parameters affect results for comments, unknown do not", {
     construct_pushshift_url(before = test_date, sort = "asc")
   )
   author <- import_reddit_content_from_url(
-    construct_pushshift_url(before = test_date, author = "hadley")
+    construct_pushshift_url(before = test_date, author = "kn0thing")
   )
   subreddit <- import_reddit_content_from_url(
     construct_pushshift_url(before = test_date, subreddit = "rstats")
@@ -77,7 +77,7 @@ test_that("known api parameters affect results for comments, unknown do not", {
 
   expect_false(identical(author, ref_comment))
   expect_true(nrow(author) > 0)
-  expect_true(all(author$author == "hadley"))
+  expect_true(all(author$author == "kn0thing"))
 
   expect_false(identical(subreddit, ref_comment))
   expect_true(nrow(subreddit) > 0)
@@ -158,7 +158,7 @@ test_that("known api parameters affect results, unknown do not", {
     construct_pushshift_url(
       content_type = "submission",
       before = test_date,
-      author = "hadley"
+      author = "kn0thing"
     )
   )
   subreddit <- import_reddit_content_from_url(
@@ -210,7 +210,7 @@ test_that("known api parameters affect results, unknown do not", {
 
   expect_false(identical(author, ref_submission))
   expect_true(nrow(author) > 0)
-  expect_true(all(author$author == "hadley"))
+  expect_true(all(author$author == "kn0thing"))
 
   expect_false(identical(subreddit, ref_submission))
   expect_true(nrow(subreddit) > 0)
@@ -234,7 +234,6 @@ test_that("multi phrase return expected results", {
     import_reddit_content_from_url()
   not_condition2 <- construct_pushshift_url(q = "(data)-(science)") %>%
     import_reddit_content_from_url()
-  complex_condition <- construct_pushshift_url(q = '("data science"|"machine learning")-statistics') %>% import_reddit_content_from_url()
 
   expect_true(all(grepl("data science", tolower(exact_phrase$body))))
   expect_true(all(grepl("data", tolower(and_condition$body))))
@@ -244,6 +243,4 @@ test_that("multi phrase return expected results", {
   expect_true(!any(grepl("science", tolower(not_condition1$body))))
   expect_true(all(grepl("data", tolower(not_condition2$body))))
   expect_true(!any(grepl("science", tolower(not_condition2$body))))
-  expect_true(all(grepl("data science|machine learning", tolower(complex_condition$body))))
-  expect_true(!any(grepl("statistics", tolower(complex_condition$body))))
 })
