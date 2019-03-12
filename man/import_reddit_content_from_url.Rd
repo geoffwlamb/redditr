@@ -35,5 +35,4 @@ comments_url <- construct_pushshift_url(
 
 # import data from that url
 comments_df <- import_reddit_content_from_url(comments_url)
-
 }

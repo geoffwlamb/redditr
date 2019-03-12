@@ -139,5 +139,4 @@ data_science_posts_on_rstats_before_christmas <- get_reddit_content(
   subreddit = "rstats",
   before = date_to_api("2018-12-25 00:00:00", tz = "EST")
 )
-
 }

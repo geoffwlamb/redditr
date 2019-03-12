@@ -69,7 +69,7 @@ test_that("known api parameters affect results for comments, unknown do not", {
 
   expect_false(identical(fields, ref_comment))
   expect_true(nrow(fields) > 0)
-  expect_identical(colnames(fields), c("created_utc","subreddit"))
+  expect_identical(colnames(fields), c("created_utc", "subreddit"))
 
   expect_false(identical(sort, ref_comment))
   expect_true(nrow(sort) > 0)

@@ -12,17 +12,16 @@
 #' @examples
 #' # read the 25 recent Reddit comments into R
 #' import_reddit_content_from_url(construct_pushshift_url())
-#'
+#' 
 #' # construct a url using pushshift api parameters
 #' comments_url <- construct_pushshift_url(
 #'   content_type = "comment",
 #'   q = "Stardew Valley",
 #'   subreddit = "games"
 #' )
-#'
+#' 
 #' # import data from that url
 #' comments_df <- import_reddit_content_from_url(comments_url)
-#'
 import_reddit_content_from_url <- function(url, timeout = 10) {
   tryCatch(
     expr = R.utils::withTimeout(

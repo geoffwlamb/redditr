@@ -14,10 +14,10 @@
 #' @examples
 #' # convert today
 #' date_to_api(Sys.Date())
-#'
+#' 
 #' # convert a specific date
 #' date_to_api("2018-03-21")
-#'
+#' 
 #' # pass as argument to construct_pushshift_url
 #' construct_pushshift_url(before = date_to_api("2017-01-01"))
 date_to_api <- function(date, tz = "") {
@@ -44,10 +44,10 @@ date_to_api <- function(date, tz = "") {
 #' @examples
 #' # capture the current time
 #' right_now <- Sys.time()
-#'
+#' 
 #' # convert it to api format (seconds after unit epoch)
 #' right_now_as_api <- date_to_api(right_now)
-#'
+#' 
 #' # and back to current time
 #' api_to_date(right_now_as_api)
 api_to_date <- function(api_date, tz = "") {

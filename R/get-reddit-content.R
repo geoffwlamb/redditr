@@ -23,47 +23,47 @@
 #' @export
 #' @examples
 #' # basic examples ----
-#'
+#' 
 #' # get 500 most recent reddit comments avilable from api
 #' recent_comments <- get_reddit_content()
-#'
+#' 
 #' # get 500 most recent posts
 #' recent_posts <- get_reddit_content(content_type = "submission")
-#'
+#' 
 #' # get more than 500 comments
 #' many_recent_comments <- get_reddit_content(
 #'   content_type = "comment",
 #'   result_limit = 1000
 #' )
-#'
+#' 
 #' # wait longer than default 10 seconds per query
 #' patient_query <- get_reddit_content(
 #'   content_type = "comment",
 #'   timeout = 20
 #' )
-#'
-#'
+#' 
+#' 
 #' # search term examples ----
-#'
+#' 
 #' # get comments containing the string "data science"
 #' # note the double quotes inside the single quotes
 #' data_science_comments <- get_reddit_content(
 #'   content_type = "comment",
 #'   q = '"data science"'
 #' )
-#'
+#' 
 #' # get comments containing the string "data" AND the (separate) string "science"
 #' data_and_science_comments <- get_reddit_content(
 #'   content_type = "comment",
 #'   q = "data+science"
 #' )
-#'
+#' 
 #' # get comments containing the string "data" OR the (separate) string "science"
 #' data_or_science_comments <- get_reddit_content(
 #'   content_type = "comment",
 #'   q = "data|science"
 #' )
-#'
+#' 
 #' # get comments containing the string "data" but NOT the string "science"
 #' # based on some light testing, the parentheses are needed on the non-negated part
 #' # "(data)-science" and "(data)-(science)" do the same thing
@@ -72,49 +72,49 @@
 #'   content_type = "comment",
 #'   q = "(data)-science"
 #' )
-#'
+#' 
 #' # a more complex query: "data science" or "macine learning" without "statistics"
 #' ds_or_ml_without_stats <- get_reddit_content(
 #'   content_type = "comment",
 #'   q = '("data science"|"machine learning")-statistics'
 #' )
-#'
-#'
+#' 
+#' 
 #' # time-based examples ----
-#'
+#' 
 #' # get comments before a specific date
 #' comments_before_christmas <- get_reddit_content(
 #'   content_type = "comment",
 #'   before = date_to_api("2018-12-25 00:00:00", tz = "EST")
 #' )
-#'
+#' 
 #' # get comments after a specific date
 #' comments_after_christmas <- get_reddit_content(
 #'   content_type = "comment",
 #'   after = date_to_api("2018-12-25 23:59:59", tz = "EST")
 #' )
-#'
-#'
+#' 
+#' 
 #' # other pushift api parameter examples ----
-#'
+#' 
 #' # get posts from a specific subreddit
 #' rstats_posts <- get_reddit_content(
 #'   content_type = "submission",
 #'   subreddit = "rstats"
 #' )
-#'
+#' 
 #' # get comments from a specific user
 #' hadley_comments <- get_reddit_content(
 #'   content_type = "comment",
 #'   author = "hadley"
 #' )
-#'
+#' 
 #' # get posts that have received a particular amount of karma
 #' good_posts <- get_reddit_content(
 #'   content_type = "submission",
 #'   score = ">1000"
 #' )
-#'
+#' 
 #' #  combine parameters
 #' data_science_posts_on_rstats_before_christmas <- get_reddit_content(
 #'   content_type = "submission",
@@ -123,7 +123,6 @@
 #'   subreddit = "rstats",
 #'   before = date_to_api("2018-12-25 00:00:00", tz = "EST")
 #' )
-#'
 get_reddit_content <- function(
                                content_type = "comment",
                                result_limit = 500,
