@@ -1,3 +1,5 @@
+# redditr 0.1.1
+
 
 * Fixed how spacing works when q argument is passed to construct_pushshift_url. It now aligns with pushshift api query documentation.
 * Added examples to documentation for using q argument on multi-word terms

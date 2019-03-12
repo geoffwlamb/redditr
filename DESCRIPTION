@@ -1,5 +1,5 @@
 Package: redditr
-Version: 0.1.0
+Version: 0.1.1
 Title: Reddit Content Scraper
 Description: An R package to interface with pushshift's Reddit API. The immediate 
     goal is to provide functionality for importing comment and submission data
