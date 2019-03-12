@@ -165,7 +165,7 @@ comments_after_christmas <- get_reddit_content(
 )
 ```
 
-### Using Other Pushshift API Parameters
+#### Using Other Pushshift API Parameters
 
 Similar to above, the general format for declaring Pushshift API
 parameters in <code>get\_reddit\_content</code> is param = “value”.
