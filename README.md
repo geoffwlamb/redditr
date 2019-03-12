@@ -15,7 +15,7 @@ status](https://codecov.io/gh/geoffwlamb/redditr/branch/master/graph/badge.svg)]
 
 redditr is an R package intended to help obtain content from Reddit by
 interfacing with the <a href = "https://github.com/pushshift/api">
-pushshift.io Reddit API</a>.
+Pushshift.io Reddit API</a>.
 
 The immediate scope of this package is to provide functionality for
 importing Reddit comment and post data into R. Some additional
@@ -37,7 +37,7 @@ devtools::install_github("geoffwlamb/redditr")
 ## Examples
 
 The redditr package’s flagship function,
-<code>get\_reddit\_content</code>, takes [pushshift.io API Search
+<code>get\_reddit\_content</code>, takes [Pushshift.io API Search
 Parameters](https://github.com/pushshift/api#search-parameters-for-comments)
 as arguments and returns a data.frame with information related your
 query. Below are some ideas for how you can use this function.
@@ -45,7 +45,7 @@ query. Below are some ideas for how you can use this function.
 ### Basic Usage
 
 If you call <code>get\_reddit\_content</code> without specifying any of
-the parameters the pushshift api is looking for, you’ll end up getting
+the parameters the Pushshift API is looking for, you’ll end up getting
 the 500 most recent comments available from the api. If you want
 information relating to posts instead, you can change the
 <code>content\_type</code> argument to “submission”.
@@ -63,7 +63,7 @@ recent_posts <- get_reddit_content(content_type = "submission")
 
 ### Adjusting Limits to Returned Results and Query Time
 
-The pushshift api limits returns a maximum of 500 results in a single
+The Pushshift API limits returns a maximum of 500 results in a single
 query. You can use <code>get\_reddit\_content</code> to automate the
 process of sending multiple queries and collecting them into a single
 data frame. Also, if you are having issues with queries taking too long
@@ -87,10 +87,91 @@ patient_query <- get_reddit_content(
 
 ### Using Pushshift API Parameters
 
-Using parameters available as part of the Pushshift api helps tailor the
-results returned from <code>get\_reddit\_content</code> to whatever your
-needs may be. The available parameters can be passed to the function as
-named arguments, like so:
+This section is a very basic introduction to including Pushshift API
+parameters in your function calls. To explore more complex querying with
+the Pushshift API, I highly recommend checking out the [Pushshift
+Documentation](https://media.readthedocs.org/pdf/reddit-api/beta/reddit-api.pdf).
+In theory, <code>get\_reddit\_content</code> should be able to support
+any of the parameters mentioned in the linked documentation. However,
+that claim has not been fully verified in practice and only a handful of
+unit tests have been written to determine how parameters affect query
+results. If you do find any discrepancies between examples in the linked
+Pushshift Documentation and function output, please feel free to open an
+issue.
+
+#### Using the Search (q) Parameter
+
+The <code>q</code> parameter lets you search for specific text within a
+comment or a submission. Here are some use cases for how you might use
+it with a multi-word phrase in different ways:
+
+``` r
+# get comments containing the string "data science"
+# note the double quotes inside the single quotes
+data_science_comments <- get_reddit_content(
+  content_type = "comment",
+  q = '"data science"'
+)
+
+# get comments containing the string "data" AND the (separate) string "science"
+data_and_science_comments <- get_reddit_content(
+  content_type = "comment",
+  q = "data+science"
+)
+
+# get comments containing the string "data" OR the (separate) string "science"
+data_or_science_comments <- get_reddit_content(
+  content_type = "comment",
+  q = "data|science"
+)
+
+# get comments containing the string "data" but NOT the string "science"
+# based on some light testing, the parentheses are needed on the non-negated part
+# "(data)-science" and "(data)-(science)" do the same thing
+# "data-(science)" does NOT
+data_not_science_comments <- get_reddit_content(
+  content_type = "comment",
+  q = "(data)-science"
+)
+
+# a more complex query: "data science" or "macine learning" without "statistics"
+ds_or_ml_without_stats <- get_reddit_content(
+  content_type = "comment",
+  q = '("data science"|"machine learning")-statistics'
+)
+```
+
+#### Specifying Dates in API Queries
+
+There are a few parameters in the Pushshift API that can be used to
+filter results based on time. The most common ones are
+<code>before</code> and <code>after</code>. These parameters are
+expecting dates to be provided in a very particular format: [Unix
+Time](https://en.wikipedia.org/wiki/Unix_time). A function for
+converting typical date formats to Unix time is available as part of
+redditr: <code>date\_to\_api</code>.
+
+``` r
+# get comments before a specific date
+comments_before_christmas <- get_reddit_content(
+  content_type = "comment",
+  before = date_to_api("2018-12-25 00:00:00", tz = "EST")
+)
+
+# get comments after a specific date 
+comments_after_christmas <- get_reddit_content(
+  content_type = "comment",
+  after = date_to_api("2018-12-25 23:59:59", tz = "EST")
+)
+```
+
+### Using Other Pushshift API Parameters
+
+Similar to above, the general format for declaring Pushshift API
+parameters in <code>get\_reddit\_content</code> is param = “value”.
+Please refer to Pushshift documentation for the full list of known
+parameters. Here are a few more examples with some available parameters
+that may be of interest:
 
 ``` r
 # get posts from a specific subreddit
@@ -105,33 +186,19 @@ hadley_comments <- get_reddit_content(
   author = "hadley"
 )
 
-# get comments relating to data science 
-comments_before_christmas <- get_reddit_content(
-  content_type = "comment",
-  q = "data science"
+# get posts that have received a particular amount of karma
+good_posts <- get_reddit_content(
+  content_type = "submission",
+  score = ">1000"
 )
-```
 
-### Specifying Dates in API Queries
-
-Finally, two parameters in the Pushshift api can be used to filter
-results based on time: <code>before</code> and <code>after</code>. These
-two parameters are expecting dates to be provided in a very particular
-format: [Unix Time](https://en.wikipedia.org/wiki/Unix_time). A function
-for converting typical date formats to Unix time is available as part of
-redditr: <code>date\_to\_api</code>.
-
-``` r
-# get comments before a specific date
-comments_before_christmas <- get_reddit_content(
-  content_type = "comment",
+#  combine parameters from all of the sections
+data_science_posts_on_rstats_before_christmas <- get_reddit_content(
+  content_type = "submission",
+  result_limit = 100,
+  q = "data science",
+  subreddit = "rstats",
   before = date_to_api("2018-12-25 00:00:00", tz = "EST")
-)
-
-# get comments after a specific date 
-comments_after_christmas <- get_reddit_content(
-  content_type = "comment",
-  after = date_to_api("2018-12-25 23:59:59", tz = "EST")
 )
 ```
 

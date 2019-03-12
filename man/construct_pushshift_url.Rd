@@ -2,13 +2,13 @@
 % Please edit documentation in R/url-building.R
 \name{construct_pushshift_url}
 \alias{construct_pushshift_url}
-\title{Construct a URL to access Reddit Content}
+\title{Construct a URL to Access Reddit Content}
 \usage{
 construct_pushshift_url(content_type = "comment", ...)
 }
 \arguments{
 \item{content_type}{A string containing the type of content you want to
-query. The pushshift api supports the following options: "comment" and
+query. The Pushshift API supports the following options: "comment" and
 "submission". This function defaults to "comment".}
 
 \item{...}{Additional parameters to pass to api query. See Details below.}
@@ -20,13 +20,13 @@ A string containing a URL pointing to JSON Reddit data
 This function is designed to convert query parameters supplied
 as arguments into a URL leading to JSON content that can be accessed
 via other functions. In particular, this function is designed to provide
-the input for \code{import_reddit_content_from_url}, which, in turn, is
+the input for \link{import_reddit_content_from_url}, which, in turn, is
 a function that is used to power redditr's flagship function,
-\code{get_reddit_content}. Using this function directly may be useful
+\link{get_reddit_content}. Using this function directly may be useful
 if you need to access the raw JSON for your query.
 }
 \details{
-Here's the list of parameters that the api can use:
+Here's the list of parameters that the API can use:
 https://github.com/pushshift/api#search-parameters-for-comments.
 The api ignores unrecognized parameters, so you may want to verify
 your output.

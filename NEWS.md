@@ -1,5 +1,10 @@
-# redditr 0.1.0
 
+* Fixed how spacing works when q argument is passed to construct_pushshift_url. It now aligns with pushshift api query documentation.
+* Added examples to documentation for using q argument on multi-word terms
+* Added more specific unit tests for data importing
+* Minor additional documentation updates
+
+# redditr 0.1.0
 
 * Reworked package functions to support a single flagship function, get_reddit_content
 * Renamed underlying functions to be more specific

@@ -21,7 +21,7 @@ return results.
 \description{
 This function converts dates from a human-consumable format
 (e.g. 2008-12-15) to their equivalent time in seconds since the Unit
-Epoch (1970-01-01 00:00:00 UTC), which is how pushshift's api expects
+Epoch (1970-01-01 00:00:00 UTC), which is how Pushshift's API expects
 dates.
 }
 \examples{

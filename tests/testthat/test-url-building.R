@@ -28,8 +28,8 @@ test_that("urls are constructed appropriately", {
     "https://api.pushshift.io/reddit/search/submission/?&="
   )
   expect_identical(
-    construct_pushshift_url(content_type = "submission", q = "hello world"),
-    "https://api.pushshift.io/reddit/search/submission/?&q=hello+world"
+    construct_pushshift_url(content_type = "submission", q = '"hello world"'),
+    'https://api.pushshift.io/reddit/search/submission/?&q="hello%20world"'
   )
   expect_identical(
     construct_pushshift_url(content_type = "comment", newparam = "newval"),

@@ -1,7 +1,7 @@
 #' Convert String or Date to API Input
 #' @description This function converts dates from a human-consumable format
 #'     (e.g. 2008-12-15) to their equivalent time in seconds since the Unit
-#'     Epoch (1970-01-01 00:00:00 UTC), which is how pushshift's api expects
+#'     Epoch (1970-01-01 00:00:00 UTC), which is how Pushshift's API expects
 #'     dates.
 #' @param date A date (which can be a string representing a validly formatted
 #'     date or one of the Date types) to compare to the Unit epoch, granular
@@ -14,10 +14,10 @@
 #' @examples
 #' # convert today
 #' date_to_api(Sys.Date())
-#' 
+#'
 #' # convert a specific date
 #' date_to_api("2018-03-21")
-#' 
+#'
 #' # pass as argument to construct_pushshift_url
 #' construct_pushshift_url(before = date_to_api("2017-01-01"))
 date_to_api <- function(date, tz = "") {
@@ -44,10 +44,10 @@ date_to_api <- function(date, tz = "") {
 #' @examples
 #' # capture the current time
 #' right_now <- Sys.time()
-#' 
+#'
 #' # convert it to api format (seconds after unit epoch)
 #' right_now_as_api <- date_to_api(right_now)
-#' 
+#'
 #' # and back to current time
 #' api_to_date(right_now_as_api)
 api_to_date <- function(api_date, tz = "") {

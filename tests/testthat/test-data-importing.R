@@ -58,28 +58,34 @@ test_that("known api parameters affect results for comments, unknown do not", {
 
   expect_false(identical(q, ref_comment))
   expect_true(nrow(q) > 0)
+  expect_true(all(grepl("programming", tolower(q$body))))
 
   expect_false(identical(ids, ref_comment))
   expect_true(nrow(ids) == 2)
+  expect_true(all(ids$id %in% c("123", "456")))
 
   expect_false(identical(size, ref_comment))
   expect_true(nrow(size) == 10)
 
   expect_false(identical(fields, ref_comment))
   expect_true(nrow(fields) > 0)
-  expect_true(ncol(fields) == 2)
+  expect_identical(colnames(fields), c("created_utc","subreddit"))
 
   expect_false(identical(sort, ref_comment))
   expect_true(nrow(sort) > 0)
+  expect_identical(sort$created_utc, sort(sort$created_utc))
 
   expect_false(identical(author, ref_comment))
   expect_true(nrow(author) > 0)
+  expect_true(all(author$author == "hadley"))
 
   expect_false(identical(subreddit, ref_comment))
   expect_true(nrow(subreddit) > 0)
+  expect_true(all(subreddit$subreddit == "rstats"))
 
   expect_false(identical(after, ref_comment))
   expect_true(nrow(after) > 0)
+  expect_identical(after, after %>% dplyr::arrange(dplyr::desc(created_utc)))
 
   expect_identical(not_a_param, ref_comment)
 })
@@ -181,31 +187,63 @@ test_that("known api parameters affect results, unknown do not", {
 
   expect_false(identical(q, ref_submission))
   expect_true(nrow(q) > 0)
+  expect_true(all(grepl("programming", tolower(q$body))))
 
   expect_false(identical(ids, ref_submission))
   expect_true(nrow(ids) == 2)
+  expect_true(all(ids$id %in% c("5lcgj7", "5lcgj6")))
 
   expect_false(identical(size, ref_submission))
   expect_true(nrow(size) == 10)
 
   expect_false(identical(fields, ref_submission))
   expect_true(nrow(fields) > 0)
-  expect_true(ncol(fields) == 2)
+  expect_identical(colnames(fields), c("created_utc", "subreddit"))
 
   expect_false(identical(sort, ref_submission))
   expect_true(nrow(sort) > 0)
+  expect_identical(sort$created_utc, sort(sort$created_utc))
 
   expect_false(identical(sort_type, ref_submission))
   expect_true(nrow(sort_type) > 0)
+  expect_identical(sort_type, sort_type %>% dplyr::arrange(dplyr::desc(score)))
 
   expect_false(identical(author, ref_submission))
   expect_true(nrow(author) > 0)
+  expect_true(all(author$author == "hadley"))
 
   expect_false(identical(subreddit, ref_submission))
   expect_true(nrow(subreddit) > 0)
+  expect_true(all(subreddit$subreddit == "rstats"))
 
   expect_false(identical(after, ref_submission))
   expect_true(nrow(after) > 0)
+  expect_identical(after, after %>% dplyr::arrange(dplyr::desc(created_utc)))
 
   expect_identical(not_a_param, ref_submission)
+})
+
+test_that("multi phrase return expected results", {
+  exact_phrase <- construct_pushshift_url(q = '"data science"') %>%
+    import_reddit_content_from_url()
+  and_condition <- construct_pushshift_url(q = "data+science") %>%
+    import_reddit_content_from_url()
+  or_condition <- construct_pushshift_url(q = "data|science") %>%
+    import_reddit_content_from_url()
+  not_condition1 <- construct_pushshift_url(q = "(data)-science") %>%
+    import_reddit_content_from_url()
+  not_condition2 <- construct_pushshift_url(q = "(data)-(science)") %>%
+    import_reddit_content_from_url()
+  complex_condition <- construct_pushshift_url(q = '("data science"|"machine learning")-statistics') %>% import_reddit_content_from_url()
+
+  expect_true(all(grepl("data science", tolower(exact_phrase$body))))
+  expect_true(all(grepl("data", tolower(and_condition$body))))
+  expect_true(all(grepl("science", tolower(and_condition$body))))
+  expect_true(all(grepl("data|science", tolower(or_condition$body))))
+  expect_true(all(grepl("data", tolower(not_condition1$body))))
+  expect_true(!any(grepl("science", tolower(not_condition1$body))))
+  expect_true(all(grepl("data", tolower(not_condition2$body))))
+  expect_true(!any(grepl("science", tolower(not_condition2$body))))
+  expect_true(all(grepl("data science|machine learning", tolower(complex_condition$body))))
+  expect_true(!any(grepl("statistics", tolower(complex_condition$body))))
 })
